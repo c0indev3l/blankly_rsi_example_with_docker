@@ -30,6 +30,7 @@ class ParamaterExplorer:
         return s
 
     def add_parameter(self, name, default, values):
+        assert name not in self._parameters.names, f"parameter '{name}' was ever set"
         self._parameters.names.append(name)
         self._parameters.default[name] = default
         self._parameters.values[name] = values
@@ -47,8 +48,8 @@ class ParamaterExplorer:
             for constraint in self._constraints:
                 if not constraint(parameter):
                     allowed = False
-                if allowed:
-                    yield (parameter)
+            if allowed:
+                yield (parameter)
 
     def add_constraint(self, constraint):
         self._constraints.append(constraint)
@@ -56,13 +57,22 @@ class ParamaterExplorer:
     def default(self, name):
         return self._parameters.default[name]
 
+    def count_runs(self):
+        i = 0
+        for parameter in self.parameters():
+            i += 1
+        return i
+
 
 explorer = ParamaterExplorer()
 explorer.add_parameter("rsi_period", 14, np.linspace(start=5, stop=20, num=11))
-explorer.add_parameter("rsi_min", 30, np.linspace(start=0, stop=100, num=11))
-explorer.add_parameter("rsi_max", 70, np.linspace(start=0, stop=100, num=11))
-explorer.add_constraint(lambda p: p.rsi_min < p.rsi_max)
+#explorer.add_parameter("rsi_min", 30, np.linspace(start=0, stop=100, num=11))
+#explorer.add_parameter("rsi_max", 70, np.linspace(start=0, stop=100, num=11))
+#explorer.add_constraint(lambda p: p.rsi_min < p.rsi_max)
 
 print(explorer)
+count = explorer.count_runs()
+print(f"\tCount: {count}")
+print()
 for i, param in enumerate(explorer.parameters()):
     print(i, param)

@@ -1,6 +1,11 @@
 # Blankly example to run inside Docker containers
 
 ## Run a backtest
+### Run locally (ie without Docker)
+```
+$ python runner.py backtest
+```
+
 ### Docker commands
 ```
 $ docker build . -t backtest -f Dockerfile.backtest
@@ -15,6 +20,11 @@ $ docker compose up
 ```
 
 ## Run a paper trade
+### Run locally (ie without Docker)
+```
+$ python runner.py papertrade
+```
+
 ### Docker-compose commands
 ```
 $ cd docker/papertrade
@@ -23,6 +33,11 @@ $ docker compose up
 ```
 
 ## Run a live trade session
+### Run locally (ie without Docker)
+```
+$ python runner.py live
+```
+
 ### Docker-compose commands
 ```
 $ cd docker/live

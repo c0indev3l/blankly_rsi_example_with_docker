@@ -1,0 +1,5 @@
+services:
+  run_trading:
+    build:
+      context: ../../
+      dockerfile: Dockerfile.live

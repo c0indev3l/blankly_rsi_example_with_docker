@@ -34,3 +34,4 @@ if __name__ == "__main__":
     with open(fname_out, "w") as fd_out:
         fd_out.write(bot_source)
     subprocess.call([sys.executable, fname_out, *sys.argv[2:]])
+    fname_out.unlink(missing_ok=True)

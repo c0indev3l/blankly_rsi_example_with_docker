@@ -1,5 +1,5 @@
 def main():
-    print(f"Run with {sys.argv[1:]}")
+    print(f"Run papertrade with {sys.argv[1:]}")
 
     # Authenticate Binance strategy
     exchange = blankly.Binance()

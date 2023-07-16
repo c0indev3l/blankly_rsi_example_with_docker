@@ -1,5 +1,5 @@
 def main():
-    print(f"Run with {sys.argv[1:]}")
+    print(f"Run backtest with {sys.argv[1:]}")
 
     # Define exchange as KeylessExchange
     path = pathlib.Path(sys.argv[0]).parent

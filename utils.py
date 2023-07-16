@@ -1,4 +1,5 @@
 import os
+from munch import Munch
 
 PARAMS = os.getenv("PARAMS", default=None)
 D_PARAMS = {}
@@ -30,3 +31,9 @@ if PARAMS is not None:
 
 def get_variable(name):
     return D_PARAMS[name]
+
+
+def init_symbol_variables(state_variables, symbol):
+    # d = {}
+    d = Munch()  # a dictionary that supports attribute-style access, a la JavaScript
+    setattr(state_variables, symbol, d)

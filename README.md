@@ -3,7 +3,8 @@
 ## Run a backtest
 ### Run locally (ie without Docker)
 ```
-$ python runner.py backtest
+$ python builder.py backtest
+$ python bot.py
 ```
 
 ### Docker commands
@@ -15,32 +16,31 @@ $ docker run backtest
 ### Docker-compose commands
 ```
 $ cd docker/backtest
-$ docker compose up
-(with eventualy --build)
+$ docker compose up --build
 ```
 
 ## Run a paper trade
 ### Run locally (ie without Docker)
 ```
-$ python runner.py papertrade
+$ python builder.py papertrade
+$ python bot.py
 ```
 
 ### Docker-compose commands
 ```
 $ cd docker/papertrade
-$ docker compose up
-(with eventualy --build)
+$ docker compose up --build
 ```
 
 ## Run a live trade session
 ### Run locally (ie without Docker)
 ```
-$ python runner.py live
+$ python builder.py live
+$ python bot.py
 ```
 
 ### Docker-compose commands
 ```
 $ cd docker/live
-$ docker compose up
-(with eventualy --build)
+$ docker compose up --build
 ```

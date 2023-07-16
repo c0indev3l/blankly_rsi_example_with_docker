@@ -4,7 +4,7 @@ def main():
     # Define exchange as KeylessExchange
     path = pathlib.Path(sys.argv[0]).parent
     exchange = blankly.KeylessExchange(
-        price_reader=blankly.data.data_reader.PriceReader(str(path / "./XBTUSDT_1D.csv"), "BTC-USD")
+        price_reader=blankly.data.data_reader.PriceReader(str(path / "data/XBTUSDT_1D.csv"), "BTC-USD")
     )
 
     # Use our strategy helper on Binance

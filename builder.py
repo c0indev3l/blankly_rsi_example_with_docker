@@ -1,14 +1,17 @@
 """
-Blankly bot runner
+Blankly bot builder
 
-Run backtest
-Usage: python runner.py backtest
+Build backtest
+Usage: 
+$ python builder.py backtest
 
-Run papertrade
-Usage: python runner.py papertrade
+Build papertrade
+Usage: 
+$ python builder.py papertrade
 
-Run live
-Usage: python runner.py live
+Build live
+Usage:
+$ python builder.py live
 """
 
 import sys
@@ -33,5 +36,5 @@ if __name__ == "__main__":
     print(bot_source)
     with open(fname_out, "w") as fd_out:
         fd_out.write(bot_source)
-    subprocess.call([sys.executable, fname_out, *sys.argv[2:]])
-    fname_out.unlink(missing_ok=True)
+    # subprocess.call([sys.executable, fname_out, *sys.argv[2:]])
+    # fname_out.unlink(missing_ok=True)

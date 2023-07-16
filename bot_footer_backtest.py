@@ -3,20 +3,6 @@ def main():
     print(f"CLI args {sys.argv[1:]}")
     params = os.getenv("PARAMS", default=None)
     print(f"PARAMS ENV VAR {params}")
-    if params is not None:
-        params = params.split(",")
-        print(params)
-        def gettype(name):
-            t = getattr(__builtins__, name)
-            if isinstance(t, type):
-                return t
-            raise ValueError(name)
-        for param in params:
-            name_typ, value = param.split("=")
-            name, typ = name_typ.split("::")
-            typ = gettype(typ)
-            print(name, typ, value)
-
 
     # Define exchange as KeylessExchange
     exchange = blankly.KeylessExchange(

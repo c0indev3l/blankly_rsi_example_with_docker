@@ -13,6 +13,7 @@ COPY keys.live.json keys.json
 # COPY blankly.json .
 
 COPY builder.py .
+COPY utils.py .
 COPY bot_footer_live.py .
 COPY bot_header.py .
 

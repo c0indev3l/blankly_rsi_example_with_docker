@@ -2,6 +2,7 @@ import sys
 import os
 import pathlib
 import blankly
+from utils import get_variable
 
 
 def init(symbol, state: blankly.StrategyState):
@@ -19,16 +20,19 @@ def init(symbol, state: blankly.StrategyState):
     state.variables.precision = 2
 
     # strategy variables initialisation
-    state.variables.rsi_period = 14
-    state.variables.rsi_min = 30.0
-    state.variables.rsi_max = 70.0
+    state.variables.rsi_period = get_variable("rsi_period")  # 14
+    state.variables.rsi_min = get_variable("rsi_min")  # 30.0
+    state.variables.rsi_max = get_variable("rsi_max")  # 70.0
 
+    print(f"Init with {state.variables}")
 
 def price_event(price, symbol, state: blankly.StrategyState):
     """This function will give an updated price every 15 seconds from our definition below"""
     state.variables.history.append(price)
 
-    rsi = blankly.indicators.rsi(state.variables.history, period=state.variables.rsi_period)
+    rsi = blankly.indicators.rsi(
+        state.variables.history, period=state.variables.rsi_period
+    )
     current_position = state.interface.account[state.base_asset].available
 
     if rsi[-1] < state.variables.rsi_min and not current_position:

@@ -3,3 +3,6 @@ services:
     build:
       context: ../../
       dockerfile: Dockerfile.backtest
+    volumes:
+      - ../../data:/usr/src/app/data
+      - ../../output:/usr/src/app/output

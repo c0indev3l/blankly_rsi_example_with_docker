@@ -5,7 +5,8 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY data data
+#COPY data data
+#VOLUME ./data /usr/src/app/data
 
 COPY backtest.json .
 COPY settings.json .
@@ -16,6 +17,8 @@ COPY builder.py .
 COPY bot_footer_backtest.py .
 COPY bot_header.py .
 
+RUN mkdir output
 RUN python builder.py backtest
 
-CMD ["/bin/bash", "-c", "cat bot.py; python bot.py"]
+#CMD ["/bin/bash", "-c", "ls /usr/src/app -R"]
+CMD ["/bin/bash", "-c", "cat bot.py; python bot.py; cp bot.html output"]

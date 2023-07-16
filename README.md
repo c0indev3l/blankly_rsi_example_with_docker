@@ -14,10 +14,18 @@ $ docker compose up
 (with eventualy --build)
 ```
 
-# Run a paper trade
+## Run a paper trade
 ### Docker-compose commands
 ```
 $ cd docker/papertrade
+$ docker compose up
+(with eventualy --build)
+```
+
+## Run a live trade session
+### Docker-compose commands
+```
+$ cd docker/live
 $ docker compose up
 (with eventualy --build)
 ```

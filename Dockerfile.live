@@ -9,7 +9,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # COPY backtest.json .
 COPY settings.json .
-COPY keys.json .
+COPY keys.live.json keys.json
 # COPY blankly.json .
 
 COPY builder.py .

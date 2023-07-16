@@ -22,7 +22,8 @@ class ParamaterExplorer:
             for name in self._parameters.names:
                 values = self._parameters.values[name]
                 default = self._parameters.default[name]
-                s += f"\n\t\t{name}: {default}\t{values}"
+                n = len(values)
+                s += f"\n\t\t{name}: {default}\t{values} ({n} values)"
         if len(self._constraints) > 0:
             s += "\n\tConstraints"
             for constraint in self._constraints:
@@ -66,8 +67,8 @@ class ParamaterExplorer:
 
 explorer = ParamaterExplorer()
 explorer.add_parameter("rsi_period", 14, np.linspace(start=5, stop=20, num=11))
-#explorer.add_parameter("rsi_min", 30, np.linspace(start=0, stop=100, num=11))
-#explorer.add_parameter("rsi_max", 70, np.linspace(start=0, stop=100, num=11))
+explorer.add_parameter("rsi_min", 30, np.linspace(start=0, stop=100, num=11))
+explorer.add_parameter("rsi_max", 70, np.linspace(start=0, stop=100, num=11))
 #explorer.add_constraint(lambda p: p.rsi_min < p.rsi_max)
 
 print(explorer)

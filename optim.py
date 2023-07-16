@@ -8,6 +8,7 @@ class Parameters:
         self.names = []
         self.values = dict()
         self.default = dict()
+        self.types = dict()
 
 
 class ParamaterExplorer:
@@ -30,11 +31,12 @@ class ParamaterExplorer:
                 s += "\n\t\t" + repr(constraint)
         return s
 
-    def add_parameter(self, name, default, values):
+    def add_parameter(self, name, default, values, typ=float):
         assert name not in self._parameters.names, f"parameter '{name}' was ever set"
         self._parameters.names.append(name)
         self._parameters.default[name] = default
         self._parameters.values[name] = values
+        self._parameters.types[name] = typ
 
     def parameters(self):
         Param = namedtuple("Param", self._parameters.names)
@@ -58,22 +60,36 @@ class ParamaterExplorer:
     def default(self, name):
         return self._parameters.default[name]
 
+    @property
     def count_runs(self):
         i = 0
         for parameter in self.parameters():
             i += 1
         return i
 
+    @property
+    def default_parameter(self):
+        Param = namedtuple("Param", self._parameters.names)
+        return Param(*self._parameters.default.values())
 
-explorer = ParamaterExplorer()
-explorer.add_parameter("rsi_period", 14, np.linspace(start=5, stop=20, num=11))
-explorer.add_parameter("rsi_min", 30, np.linspace(start=0, stop=100, num=11))
-explorer.add_parameter("rsi_max", 70, np.linspace(start=0, stop=100, num=11))
-#explorer.add_constraint(lambda p: p.rsi_min < p.rsi_max)
 
-print(explorer)
-count = explorer.count_runs()
-print(f"\tCount: {count}")
-print()
-for i, param in enumerate(explorer.parameters()):
-    print(i, param)
+def main():
+    explorer = ParamaterExplorer()
+    explorer.add_parameter("rsi_period", 14, np.arange(start=10, stop=20, step=1), int)
+    explorer.add_parameter("rsi_min", 30, np.linspace(start=0, stop=100, num=11), float)
+    explorer.add_parameter("rsi_max", 70, np.linspace(start=0, stop=100, num=11), float)
+    explorer.add_constraint(lambda p: p.rsi_min < p.rsi_max)
+
+    print(explorer)
+    print()
+    count = explorer.count_runs
+    print(f"\tCount: {count}")
+    print()
+    print(f"\tDefault: {explorer.default_parameter}")
+    print()
+    for i, param in enumerate(explorer.parameters()):
+        print(i, param)
+
+
+if __name__ == "__main__":
+    main()

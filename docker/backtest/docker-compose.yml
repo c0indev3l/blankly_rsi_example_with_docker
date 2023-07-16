@@ -6,3 +6,5 @@ services:
     volumes:
       - ../../data:/usr/src/app/data
       - ../../output:/usr/src/app/output
+    environment:
+      - PARAMS=rsi_period::int=14

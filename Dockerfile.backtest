@@ -21,4 +21,4 @@ RUN mkdir output
 RUN python builder.py backtest
 
 #CMD ["/bin/bash", "-c", "ls /usr/src/app -R"]
-CMD ["/bin/bash", "-c", "cat bot.py; python bot.py; cp bot.html output"]
+CMD ["/bin/bash", "-c", "ls /usr/src/app -R; cat bot.py; python bot.py; cp bot.html output"]

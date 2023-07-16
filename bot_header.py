@@ -26,7 +26,9 @@ def init(symbol, state: blankly.StrategyState):
                                                       resolution=state.resolution)['close']
 
     # Get the max precision for this symbol from the API
-    increment = next(product['base_increment']
-                     for product in state.interface.get_products()
-                     if product['symbol'] == symbol)
-    state.variables.precision = blankly.utils.increment_to_precision(increment)
+    #increment = next(product['base_increment']
+    #                 # for product in state.interface.get_products()
+    #                 for product in state.interface.get_order_filter('symbol')
+    #                 if product['symbol'] == symbol)
+    #state.variables.precision = blankly.utils.increment_to_precision(increment)
+    state.variables.precision = 2

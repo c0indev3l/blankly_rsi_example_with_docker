@@ -1,6 +1,8 @@
 # Blankly
 keys.json
-#keys.live.json
+keys.live.json
+bot.html
+price_caches/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

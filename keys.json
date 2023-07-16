@@ -1,0 +1,46 @@
+{
+    "alpaca": {
+        "example-portfolio": {
+            "API_KEY": "********************",
+            "API_SECRET": "********************",
+            "sandbox": true
+        }
+    },
+    "binance": {
+        "example-portfolio": {
+            "API_KEY": "********************",
+            "API_SECRET": "********************",
+            "sandbox": true
+        }
+    },
+    "coinbase_pro": {
+        "example-portfolio": {
+            "API_KEY": "********************",
+            "API_SECRET": "********************",
+            "API_PASS": "********************",
+            "sandbox": true
+        }
+    },
+    "ftx": {
+        "example-portfolio": {
+            "API_KEY": "********************",
+            "API_SECRET": "********************",
+            "sandbox": true
+        }
+    },
+    "oanda": {
+        "example-portfolio": {
+            "ACCOUNT_ID": "********************",
+            "PERSONAL_ACCESS_TOKEN": "********************",
+            "sandbox": true
+        }
+    },
+    "kucoin": {
+        "example-portfolio": {
+            "API_KEY": "********************",
+            "API_SECRET": "********************",
+            "API_PASS": "********************",
+            "sandbox": true
+        }
+    }
+}

@@ -1,5 +1,8 @@
 # Blankly example to run inside Docker containers
 
+This is a work in progress which have never been tested live.
+Don't use it until you are sure!
+
 ## Run a backtest
 ### Run locally (ie without Docker)
 ```

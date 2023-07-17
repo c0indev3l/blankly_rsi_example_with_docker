@@ -44,7 +44,7 @@ def main():
 
         # Run the price event function every time we check for a new price - by default that is 15 seconds
         variables = {
-            "BTC-USD": Munch(*parameter),
+            "BTC-USD": Munch(**parameter._asdict()),
         }
         strategy.add_price_event(
             price_event, symbol="BTC-USD", resolution="1d", init=init, variables=variables

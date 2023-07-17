@@ -15,15 +15,19 @@ import numpy as np
 from bot_core import init, price_event
 from parameter_explorer import ParameterExplorer
 
+from dotenv import dotenv_values
+
 
 def main():
+    config = dotenv_values(".env")
+    run_id = config["RUN_ID"]
     scheduled_time = datetime.datetime.now()
     uri = "sqlite:///output/backtests.sqlite"
     engine = sqlalchemy.create_engine(uri)
     # conn = engine.connect()
     Base.metadata.create_all(engine)
 
-    print("Run backtest with :")
+    print(f"Run backtest {run_id} with :")
     print(f"CLI args {sys.argv[1:]}")
     params = os.getenv("PARAMS", default=None)
     print(f"PARAMS ENV VAR '{params}'")
@@ -37,12 +41,13 @@ def main():
 
     # define exploration, constraints
     explorer = ParameterExplorer()
-    """
     # One point exploration
     explorer.add_parameter("rsi_period", 14)
     explorer.add_parameter("rsi_min", 30.0)
     explorer.add_parameter("rsi_max", 70.0)
+
     """
+    # Several parameter exploration
     explorer.add_parameter("rsi_period", 14, np.arange(start=10, stop=20, step=1), int)
     explorer.add_parameter(
         "rsi_min", 30.0, np.linspace(start=0, stop=100, num=11), float
@@ -52,6 +57,7 @@ def main():
     )
     # explorer.add_parameter("dir", "BUY", ["BUY", "SELL"], str)
     explorer.add_constraint(lambda p: p.rsi_min < p.rsi_max)
+    """
 
     count = explorer.count_runs
     for i, parameter in enumerate(explorer.parameters(), start=1):
@@ -85,6 +91,7 @@ def main():
         #    json.dump(d_results, fd)
 
         run = BacktestRun(
+            run_id=run_id,
             scheduled_time=scheduled_time,
             start_time=scheduled_time,
             end_time=end_time,

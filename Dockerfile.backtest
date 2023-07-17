@@ -15,10 +15,12 @@ COPY keys.json .
 
 RUN mkdir output
 
+COPY preprocessing.py .
+COPY postprocessing.py .
 COPY db.py .
 COPY parameter_explorer.py .
 COPY bot_run_backtest.py .
 COPY bot_core.py .
 
 #CMD ["/bin/bash", "-c", "ls /usr/src/app -R"]
-CMD ["/bin/bash", "-c", "ls /usr/src/app -R; python preprocessing.py; && python bot_run_backtest.py && python postprocessing.py;"]
+CMD ["/bin/bash", "-c", "ls /usr/src/app -R; python preprocessing.py backtest && python bot_run_backtest.py && python postprocessing.py backtest;"]

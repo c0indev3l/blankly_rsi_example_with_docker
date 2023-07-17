@@ -12,8 +12,10 @@ COPY settings.json .
 COPY keys.live.json keys.json
 # COPY blankly.json .
 
+COPY preprocessing.py .
+#COPY postprocessing.py .
 COPY db.py .
 COPY bot_run_live.py .
 COPY bot_core.py .
 
-CMD ["/bin/bash", "-c", "cat bot_run_live.py; python bot_run_live.py"]
+CMD ["/bin/bash", "-c", "python preprocessing.py live && python bot_run_live.py"]

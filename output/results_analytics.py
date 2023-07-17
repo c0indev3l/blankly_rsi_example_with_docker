@@ -27,7 +27,9 @@ def load_backtests(query, db_uri):
         for col in [f"metrics.{metric}.display_name", f"metrics.{metric}.type"]:
             assert col in df_output.columns, f"column {col} not in df columns"
             del df_output[col]
-    df_output = df_output.rename(columns={"start_time": "trade_start_time", "stop_time": "trade_stop_time"})
+    df_output = df_output.rename(
+        columns={"start_time": "trade_start_time", "stop_time": "trade_stop_time"}
+    )
     for col in ["trade_start_time", "trade_stop_time"]:
         df_output[col] = pd.to_datetime(df_output[col], unit="s")
     del df["output"]

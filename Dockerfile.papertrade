@@ -5,18 +5,15 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY data data
+#COPY data data
 
 # COPY backtest.json .
 COPY settings.json .
 COPY keys.json .
 # COPY blankly.json .
 
-COPY builder.py .
-COPY utils.py .
-COPY bot_footer_papertrade.py .
-COPY bot_header.py .
+COPY db.py .
+COPY bot_run_papertrade.py .
+COPY bot_core.py .
 
-RUN python builder.py papertrade
-
-CMD ["/bin/bash", "-c", "cat bot.py; python bot.py"]
+CMD ["/bin/bash", "-c", "cat bot_run_papertrade.py; python bot_run_papertrade.py"]

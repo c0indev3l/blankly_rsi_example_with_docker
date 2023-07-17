@@ -12,11 +12,8 @@ COPY settings.json .
 COPY keys.live.json keys.json
 # COPY blankly.json .
 
-COPY builder.py .
-COPY utils.py .
-COPY bot_footer_live.py .
-COPY bot_header.py .
+COPY db.py .
+COPY bot_run_live.py .
+COPY bot_core.py .
 
-RUN python builder.py live
-
-CMD ["/bin/bash", "-c", "cat bot.py; python bot.py"]
+CMD ["/bin/bash", "-c", "cat bot_run_live.py; python bot_run_live.py"]

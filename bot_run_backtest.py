@@ -1,8 +1,16 @@
+import os
+import sys
 import datetime
+
+import blankly
 import sqlalchemy
 from sqlalchemy.orm import Session
+
 from db import BacktestRun, Base
+import json
 from munch import Munch
+
+from bot_core import init, price_event
 
 
 def main():
@@ -30,7 +38,9 @@ def main():
     variables = {
         "BTC-USD": Munch(rsi_period=14, rsi_min=30.0, rsi_max=70.0),
     }
-    strategy.add_price_event(price_event, symbol="BTC-USD", resolution="1d", init=init, variables=variables)
+    strategy.add_price_event(
+        price_event, symbol="BTC-USD", resolution="1d", init=init, variables=variables
+    )
 
     # strategy.start()
     results = strategy.backtest(to="3y", initial_values={"USD": 10000})

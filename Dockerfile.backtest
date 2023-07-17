@@ -13,14 +13,11 @@ COPY settings.json .
 COPY keys.json .
 # COPY blankly.json .
 
-COPY builder.py .
-COPY utils.py .
-COPY db.py .
-COPY bot_footer_backtest.py .
-COPY bot_header.py .
-
 RUN mkdir output
-RUN python builder.py backtest
+
+COPY db.py .
+COPY bot_run_backtest.py .
+COPY bot_core.py .
 
 #CMD ["/bin/bash", "-c", "ls /usr/src/app -R"]
-CMD ["/bin/bash", "-c", "ls /usr/src/app -R; cat bot.py; python bot.py && cp bot.html output"]
+CMD ["/bin/bash", "-c", "ls /usr/src/app -R; cat bot_run_backtest.py; python bot_run_backtest.py && cp bot.html output"]

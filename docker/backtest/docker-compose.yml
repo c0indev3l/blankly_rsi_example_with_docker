@@ -6,6 +6,6 @@ services:
     volumes:
       - ../../data:/usr/src/app/data
       - ../../output:/usr/src/app/output
-    environment:
+    #environment:
       #- PARAMS=rsi_period::int=14,rsi_min::float=30.0,rsi_max::float=70.0
-      - PARAMS=${PARAMS}
+      #- PARAMS=${PARAMS}  # should use .env file

@@ -3,7 +3,7 @@ import numpy as np
 import sqlalchemy
 from sqlalchemy.orm import Session
 
-from parameter_explorer import ParamaterExplorer, to_param_string
+from parameter_explorer import ParamaterExplorer
 from db import Base, BacktestRun
 
 
@@ -29,7 +29,7 @@ def main():
     print(f"\tCount: {count}")
     print()
     print(f"\tDefault: {explorer.default_parameter}")
-    print(f"\t\t{to_param_string(explorer.default_parameter)}")
+    # print(f"\t\t{to_param_string(explorer.default_parameter)}")
     print()
 
     runs = []

@@ -1,8 +1,19 @@
+import datetime
+import sqlalchemy
+from sqlalchemy.orm import Session
+from db import BacktestRun, Base
+
+
 def main():
+    scheduled_time = datetime.datetime.now()
+    engine = sqlalchemy.create_engine("sqlite:///output/backtests.sqlite")
+    # conn = engine.connect()
+    Base.metadata.create_all(engine)
+
     print("Run backtest with :")
     print(f"CLI args {sys.argv[1:]}")
     params = os.getenv("PARAMS", default=None)
-    print(f"PARAMS ENV VAR {params}")
+    print(f"PARAMS ENV VAR '{params}'")
 
     # Define exchange as KeylessExchange
     exchange = blankly.KeylessExchange(
@@ -19,7 +30,24 @@ def main():
 
     # strategy.start()
     results = strategy.backtest(to="3y", initial_values={"USD": 10000})
+    end_time = datetime.datetime.now()
     print(results)
+
+    d_results = results.to_dict()
+    json_results = json.dumps(d_results)
+    # with open("output/results.json", "w") as fd:
+    #    json.dump(d_results, fd)
+
+    run = BacktestRun(
+        scheduled_time=scheduled_time,
+        start_time=scheduled_time,
+        end_time=end_time,
+        input=params,
+        output=json_results,
+    )
+    with Session(engine) as session:
+        session.add(run)
+        session.commit()
 
 
 if __name__ == "__main__":

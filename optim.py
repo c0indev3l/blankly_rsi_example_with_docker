@@ -1,31 +1,11 @@
-import numpy as np
-from parameter_explorer import ParamaterExplorer, to_param_string
-
-
 import datetime
+import numpy as np
 import sqlalchemy
-from sqlalchemy.orm import declarative_base, Session
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.orm import Session
 
-Base = declarative_base()
+from parameter_explorer import ParamaterExplorer, to_param_string
+from db import Base, BacktestRun
 
-class BacktestRun(Base):
-    __tablename__ = "backtest_runs"
-    id = Column(Integer, primary_key=True)
-    scheduled_time = Column(DateTime)
-    start_time = Column(DateTime)
-    end_time = Column(DateTime)
-    input = Column(String)
-    output = Column(String)
-
-    def __repr__(self):
-        return (
-            f"<BacktestRun(scheduled_time='{self.scheduled_time}', "
-            f"start_time='{self.start_time}', "
-            f"end_time='{self.end_time}', "
-            f"input='{self.input}', "
-            f"output='{self.output}')>"
-        )
 
 def main():
     scheduled_time = datetime.datetime.now()
@@ -60,9 +40,10 @@ def main():
             run = BacktestRun(
                 scheduled_time=scheduled_time, input=to_param_string(param)
             )
+            # session.add(run)
             runs.append(run)
-    session.add_all(runs)
-    session.commit()
+        session.add_all(runs)
+        session.commit()
 
 
 if __name__ == "__main__":

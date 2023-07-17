@@ -3,8 +3,8 @@ from munch import Munch
 
 PARAMS = os.getenv("PARAMS", default=None)
 D_PARAMS = {}
-print(f"PARAMS ENV2 VAR {PARAMS}")
-if PARAMS is not None:
+print(f"PARAMS ENV2 VAR '{PARAMS}'")
+if PARAMS is not None and PARAMS != "":
     PARAMS = PARAMS.split(",")
 
     def gettype(name):
@@ -25,8 +25,12 @@ if PARAMS is not None:
     print(D_PARAMS)
 
 
-def get_variable(name):
-    return D_PARAMS[name]
+def get_variable(name, default=None):
+    try:
+        return D_PARAMS[name]
+    except KeyError:
+        print(f"Can't find key '{name}' in PARAMS using default value {default}")
+        return default
 
 
 def init_symbol_variables(state_variables, symbol):

@@ -1,5 +1,6 @@
 import sys
 import os
+import json
 import blankly
 from utils import get_variable, init_symbol_variables
 
@@ -20,9 +21,9 @@ def init(symbol, state: blankly.StrategyState):
 
     # strategy variables initialisation from environment variable
     init_symbol_variables(state.variables, symbol)
-    state.variables[symbol].rsi_period = get_variable("rsi_period")  # 14
-    state.variables[symbol].rsi_min = get_variable("rsi_min")  # 30.0
-    state.variables[symbol].rsi_max = get_variable("rsi_max")  # 70.0
+    state.variables[symbol].rsi_period = get_variable("rsi_period", 14)
+    state.variables[symbol].rsi_min = get_variable("rsi_min", 30.0)
+    state.variables[symbol].rsi_max = get_variable("rsi_max", 70.0)
 
     print(f"Init with {state.variables}")
 

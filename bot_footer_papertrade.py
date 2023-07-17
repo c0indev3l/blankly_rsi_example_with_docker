@@ -11,7 +11,10 @@ def main():
     strategy = blankly.Strategy(paper_trade)
 
     # Run the price event function every time we check for a new price - by default that is 15 seconds
-    strategy.add_price_event(price_event, symbol="BTC-USDT", resolution="1d", init=init)
+    variables = {
+        "BTC-USDT": Munch()
+    }
+    strategy.add_price_event(price_event, symbol="BTC-USDT", resolution="1d", init=init, variables=variables)
 
     strategy.start()
 

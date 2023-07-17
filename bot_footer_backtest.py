@@ -2,6 +2,7 @@ import datetime
 import sqlalchemy
 from sqlalchemy.orm import Session
 from db import BacktestRun, Base
+from munch import Munch
 
 
 def main():
@@ -26,7 +27,10 @@ def main():
     strategy = blankly.Strategy(exchange)
 
     # Run the price event function every time we check for a new price - by default that is 15 seconds
-    strategy.add_price_event(price_event, symbol="BTC-USD", resolution="1d", init=init)
+    variables = {
+        "BTC-USD": Munch(rsi_period=14, rsi_min=30.0, rsi_max=70.0),
+    }
+    strategy.add_price_event(price_event, symbol="BTC-USD", resolution="1d", init=init, variables=variables)
 
     # strategy.start()
     results = strategy.backtest(to="3y", initial_values={"USD": 10000})

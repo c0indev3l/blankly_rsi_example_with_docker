@@ -3,7 +3,7 @@ from munch import Munch
 
 PARAMS = os.getenv("PARAMS", default=None)
 D_PARAMS = {}
-print(f"PARAMS ENV2 VAR '{PARAMS}'")
+print(f"PARAMS ENV1 VAR '{PARAMS}'")
 if PARAMS is not None and PARAMS != "":
     PARAMS = PARAMS.split(",")
 

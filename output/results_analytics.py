@@ -2,15 +2,44 @@ import json
 import pandas as pd
 
 
-def main():
-    pd.options.display.max_columns = 10
-    query = "SELECT * FROM backtest_runs"
-    db_uri = "sqlite:///backtests.sqlite"
+def load_backtests(query, db_uri):
     df = pd.read_sql(query, db_uri)
-    df.set_index("id", inplace=True)
+    for col in ["scheduled_time", "start_time", "end_time"]:
+        df[col] = pd.to_datetime(df[col])
     df["output"] = df["output"].map(lambda s: json.loads(s))
     df_output = pd.json_normalize(df["output"])
+    metrics = [
+        "calmar",
+        "cagr",
+        "cavr",
+        "cum_returns",
+        "max_drawdown",
+        "resampled_time",
+        "risk_free_rate",
+        "sharpe",
+        "sortino",
+        "value_at_risk",
+        "variance",
+        "volatility",
+    ]
+    for metric in metrics:
+        for col in [f"metrics.{metric}.display_name", f"metrics.{metric}.type"]:
+            assert col in df_output.columns, f"column {col} not in df columns"
+            del df_output[col]
+    df_output = df_output.rename(columns={"start_time": "trade_start_time", "stop_time": "trade_stop_time"})
+    for col in ["trade_start_time", "trade_stop_time"]:
+        df_output[col] = pd.to_datetime(df_output[col], unit="s")
+    del df["output"]
     df = pd.concat([df, df_output], axis=1)
+    df.set_index("id", inplace=True)
+    return df
+
+
+def main():
+    pd.options.display.max_columns = 30
+    query = "SELECT * FROM backtest_runs"
+    db_uri = "sqlite:///backtests.sqlite"
+    df = load_backtests(query, db_uri)
     print(df)
     print(df.dtypes)
     df.to_excel("backtests.xlsx")

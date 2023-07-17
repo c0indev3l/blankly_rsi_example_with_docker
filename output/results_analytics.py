@@ -1,5 +1,6 @@
 import json
 import pandas as pd
+from bokeh.plotting import show
 
 
 def load_backtests(query, db_uri):
@@ -33,6 +34,15 @@ def load_backtests(query, db_uri):
     df = pd.concat([df, df_output], axis=1)
     df.set_index("id", inplace=True)
     return df
+
+
+def get_history(df, id):
+    df_hist = df.loc[id, "history"]
+    df_hist = pd.DataFrame.from_records(df_hist)
+    df_hist["time"] = pd.to_datetime(df_hist["time"], unit="s")
+    df_hist.set_index("time", inplace=True)
+    df_hist.plot()
+    return df_hist
 
 
 def main():

@@ -1,6 +1,5 @@
 import sys
 import os
-import pathlib
 import blankly
 from utils import get_variable, init_symbol_variables
 

@@ -40,7 +40,10 @@ class ParamaterExplorer:
     def parameters(self):
         Param = namedtuple("Param", self._parameters.names)
         for parameter in itertools.product(*self._parameters.values.values()):
-            parameter = [self._parameters.types[self._parameters.names[i]](p) for i, p in enumerate(parameter)]
+            parameter = [
+                self._parameters.types[self._parameters.names[i]](p)
+                for i, p in enumerate(parameter)
+            ]
             parameter = Param(*parameter)
             allowed = True
             for constraint in self._constraints:
@@ -70,13 +73,11 @@ class ParamaterExplorer:
 
 def to_param_string(param):
     s = ""
+
     def get_type_string(typ):
-        know_typ = {
-            int: "int",
-            float: "float",
-            str: "str"
-        }
+        know_typ = {int: "int", float: "float", str: "str"}
         return know_typ[typ]
+
     for i, (k, v) in enumerate(zip(param._fields, param)):
         if i != 0:
             s += ","

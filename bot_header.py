@@ -26,6 +26,7 @@ def init(symbol, state: blankly.StrategyState):
 
     print(f"Init with {state.variables}")
 
+
 def price_event(price, symbol, state: blankly.StrategyState):
     """This function will give an updated price every 15 seconds from our definition below"""
     state.variables.history.append(price)
@@ -35,9 +36,7 @@ def price_event(price, symbol, state: blankly.StrategyState):
     rsi_min = state.variables[symbol].rsi_min
     rsi_max = state.variables[symbol].rsi_max
 
-    rsi = blankly.indicators.rsi(
-        state.variables.history, period=rsi_period
-    )
+    rsi = blankly.indicators.rsi(state.variables.history, period=rsi_period)
     current_position = state.interface.account[state.base_asset].available
 
     if rsi[-1] < rsi_min and not current_position:

@@ -8,11 +8,7 @@ if PARAMS is not None:
     PARAMS = PARAMS.split(",")
 
     def gettype(name):
-        know_types = {
-            "int": int,
-            "float": float,
-            "str": str
-        }
+        know_types = {"int": int, "float": float, "str": str}
         return know_types[name]
         """
         t = getattr(__builtins__, name)

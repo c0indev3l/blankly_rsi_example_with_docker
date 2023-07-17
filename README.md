@@ -6,8 +6,7 @@ Don't use it until you are sure!
 ## Run a backtest
 ### Run locally (ie without Docker)
 ```
-$ python builder.py backtest
-$ python bot.py
+$ python bot_run_backtest.py
 ```
 
 ### Docker commands
@@ -25,8 +24,7 @@ $ docker compose up --build
 ## Run a paper trade
 ### Run locally (ie without Docker)
 ```
-$ python builder.py papertrade
-$ python bot.py
+$ python bot_run_papertrade.py
 ```
 
 ### Docker-compose commands
@@ -38,8 +36,7 @@ $ docker compose up --build
 ## Run a live trade session
 ### Run locally (ie without Docker)
 ```
-$ python builder.py live
-$ python bot.py
+$ python bot_run_live.py
 ```
 
 ### Docker-compose commands

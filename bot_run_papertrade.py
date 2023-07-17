@@ -1,5 +1,15 @@
+import os
+import sys
+import blankly
+from munch import Munch
+from bot_core import init, price_event
+
+
 def main():
-    print(f"Run papertrade with {sys.argv[1:]}")
+    print("Run live with :")
+    print(f"CLI args {sys.argv[1:]}")
+    params = os.getenv("PARAMS", default=None)
+    print(f"PARAMS ENV VAR '{params}'")
 
     # Authenticate Binance strategy
     exchange = blankly.Binance()

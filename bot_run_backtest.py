@@ -11,6 +11,7 @@ import json
 from munch import Munch
 
 from bot_core import init, price_event
+from parameter_explorer import ParamaterExplorer
 
 
 def main():
@@ -31,37 +32,45 @@ def main():
         )
     )
 
-    # Use our strategy helper on Binance
-    strategy = blankly.Strategy(exchange)
+    # define exploration, constraints
+    explorer = ParamaterExplorer()
+    explorer.add_parameter("rsi_period", 14)
+    explorer.add_parameter("rsi_min", 30.0)
+    explorer.add_parameter("rsi_max", 70.0)
 
-    # Run the price event function every time we check for a new price - by default that is 15 seconds
-    variables = {
-        "BTC-USD": Munch(rsi_period=14, rsi_min=30.0, rsi_max=70.0),
-    }
-    strategy.add_price_event(
-        price_event, symbol="BTC-USD", resolution="1d", init=init, variables=variables
-    )
+    for parameter in explorer.parameters():
+        # Use our strategy helper on Binance
+        strategy = blankly.Strategy(exchange)
 
-    # strategy.start()
-    results = strategy.backtest(to="3y", initial_values={"USD": 10000})
-    end_time = datetime.datetime.now()
-    print(results)
+        # Run the price event function every time we check for a new price - by default that is 15 seconds
+        variables = {
+            "BTC-USD": Munch(*parameter),
+        }
+        strategy.add_price_event(
+            price_event, symbol="BTC-USD", resolution="1d", init=init, variables=variables
+        )
 
-    d_results = results.to_dict()
-    json_results = json.dumps(d_results)
-    # with open("output/results.json", "w") as fd:
-    #    json.dump(d_results, fd)
+        print(f"Run backtest with {variables}")
+        # strategy.start()  # papertrade / live
+        results = strategy.backtest(to="3y", initial_values={"USD": 10000})
+        end_time = datetime.datetime.now()
+        print(results)
 
-    run = BacktestRun(
-        scheduled_time=scheduled_time,
-        start_time=scheduled_time,
-        end_time=end_time,
-        input=params,
-        output=json_results,
-    )
-    with Session(engine) as session:
-        session.add(run)
-        session.commit()
+        d_results = results.to_dict()
+        json_results = json.dumps(d_results)
+        # with open("output/results.json", "w") as fd:
+        #    json.dump(d_results, fd)
+
+        run = BacktestRun(
+            scheduled_time=scheduled_time,
+            start_time=scheduled_time,
+            end_time=end_time,
+            input=params,
+            output=json_results,
+        )
+        with Session(engine) as session:
+            session.add(run)
+            session.commit()
 
 
 if __name__ == "__main__":

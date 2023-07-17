@@ -64,7 +64,11 @@ def main():
             "BTC-USD": Munch(**d_param),
         }
         strategy.add_price_event(
-            price_event, symbol="BTC-USD", resolution="1d", init=init, variables=variables
+            price_event,
+            symbol="BTC-USD",
+            resolution="1d",
+            init=init,
+            variables=variables,
         )
 
         print(f"Run backtest {i} / {count} with {variables}")

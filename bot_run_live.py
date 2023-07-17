@@ -5,6 +5,7 @@ from munch import Munch
 
 from bot_core import init, price_event
 
+
 def main():
     print("Run live with :")
     print(f"CLI args {sys.argv[1:]}")

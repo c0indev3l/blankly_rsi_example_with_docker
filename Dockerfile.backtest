@@ -21,4 +21,4 @@ COPY bot_run_backtest.py .
 COPY bot_core.py .
 
 #CMD ["/bin/bash", "-c", "ls /usr/src/app -R"]
-CMD ["/bin/bash", "-c", "ls /usr/src/app -R; cat bot_run_backtest.py; python bot_run_backtest.py && cp bot_run_backtest.html output"]
+CMD ["/bin/bash", "-c", "ls /usr/src/app -R; python preprocessing.py; && python bot_run_backtest.py && python postprocessing.py;"]

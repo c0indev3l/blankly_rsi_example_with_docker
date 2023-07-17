@@ -7,7 +7,7 @@ def load_backtests(query, db_uri):
     df = pd.read_sql(query, db_uri)
     for col in ["scheduled_time", "start_time", "end_time"]:
         df[col] = pd.to_datetime(df[col])
-    
+
     # parse input JSON and normalize
     df["input"] = df["input"].map(lambda s: json.loads(s))
     df_input = pd.json_normalize(df["input"])

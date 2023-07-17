@@ -1,10 +1,10 @@
 import numpy as np
 from collections import namedtuple
-from parameter_explorer import ParamaterExplorer
+from parameter_explorer import ParameterExplorer
 
 
 def test_pe_example1():
-    explorer = ParamaterExplorer()
+    explorer = ParameterExplorer()
     explorer.add_parameter("rsi_period", 14, np.arange(start=10, stop=20, step=1), int)
     explorer.add_parameter(
         "rsi_min", 30.0, np.linspace(start=0, stop=100, num=11), float
@@ -19,7 +19,7 @@ def test_pe_example1():
 
 
 def test_pe_example2_noexploration():
-    explorer = ParamaterExplorer()
+    explorer = ParameterExplorer()
     explorer.add_parameter("rsi_period", 14)
     explorer.add_parameter("rsi_min", 30.0)
     explorer.add_parameter("rsi_max", 70.0)

@@ -10,7 +10,7 @@ class Parameters:
         self.types = dict()
 
 
-class ParamaterExplorer:
+class ParameterExplorer:
     def __init__(self):
         self._parameters = Parameters()
         self._constraints = []

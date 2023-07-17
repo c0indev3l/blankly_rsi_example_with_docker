@@ -11,7 +11,7 @@ import json
 from munch import Munch
 
 from bot_core import init, price_event
-from parameter_explorer import ParamaterExplorer
+from parameter_explorer import ParameterExplorer
 
 
 def main():
@@ -33,7 +33,7 @@ def main():
     )
 
     # define exploration, constraints
-    explorer = ParamaterExplorer()
+    explorer = ParameterExplorer()
     explorer.add_parameter("rsi_period", 14)
     explorer.add_parameter("rsi_min", 30.0)
     explorer.add_parameter("rsi_max", 70.0)

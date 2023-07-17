@@ -53,6 +53,7 @@ def main():
     # explorer.add_parameter("dir", "BUY", ["BUY", "SELL"], str)
     explorer.add_constraint(lambda p: p.rsi_min < p.rsi_max)
 
+    count = explorer.count_runs
     for i, parameter in enumerate(explorer.parameters(), start=1):
         # Use our strategy helper on Binance
         strategy = blankly.Strategy(exchange)
@@ -66,7 +67,7 @@ def main():
             price_event, symbol="BTC-USD", resolution="1d", init=init, variables=variables
         )
 
-        print(f"Run backtest {i} with {variables}")
+        print(f"Run backtest {i} / {count} with {variables}")
         # strategy.start()  # papertrade / live
         results = strategy.backtest(to="3y", initial_values={"USD": 10000})
         end_time = datetime.datetime.now()

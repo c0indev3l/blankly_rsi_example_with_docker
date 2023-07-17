@@ -7,6 +7,12 @@ def load_backtests(query, db_uri):
     df = pd.read_sql(query, db_uri)
     for col in ["scheduled_time", "start_time", "end_time"]:
         df[col] = pd.to_datetime(df[col])
+    
+    # parse input JSON and normalize
+    df["input"] = df["input"].map(lambda s: json.loads(s))
+    df_input = pd.json_normalize(df["input"])
+
+    # parse output JSON and normalize
     df["output"] = df["output"].map(lambda s: json.loads(s))
     df_output = pd.json_normalize(df["output"])
     metrics = [
@@ -33,7 +39,9 @@ def load_backtests(query, db_uri):
     for col in ["trade_start_time", "trade_stop_time"]:
         df_output[col] = pd.to_datetime(df_output[col], unit="s")
     del df["output"]
-    df = pd.concat([df, df_output], axis=1)
+
+    # concatenate input params, output metrics with others columns
+    df = pd.concat([df, df_input, df_output], axis=1)
     df.set_index("id", inplace=True)
     return df
 

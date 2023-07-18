@@ -3,4 +3,4 @@ services:
     build:
       context: ../../
       dockerfile: Dockerfile.live
-    restart: always
+    restart: unless-stopped

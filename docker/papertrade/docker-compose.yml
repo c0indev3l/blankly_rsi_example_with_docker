@@ -3,4 +3,4 @@ services:
     build:
       context: ../../
       dockerfile: Dockerfile.papertrade
-    restart: always
+    restart: unless-stopped

@@ -42,7 +42,8 @@ $ cd docker/papertrade
 $ docker compose up --build
 ```
 
-be aware that `restart: always` have been set in `docker-compose.yml` so it will automatically restart and it's necessary to explicitly stop the container.
+be aware that `restart: unless-stopped` have been set in `docker-compose.yml` so it will automatically restart and it's necessary to explicitly stop the container.
+this seems to be safer than `always`. (which restart container even if it have been stopped!)
 
 ## See logs (with timestamp)
 ```
@@ -68,7 +69,8 @@ $ cd docker/live
 $ docker compose up --build
 ```
 
-be aware that `restart: always` have been set in `docker-compose.yml` so it will automatically restart and it's necessary to explicitly stop the container.
+be aware that `restart: unless-stopped` have been set in `docker-compose.yml` so it will automatically restart and it's necessary to explicitly stop the container.
+this seems to be safer than `always` (which restart container even if it have been stopped!)
 
 ### Stop with Docker-compose commands
 ```

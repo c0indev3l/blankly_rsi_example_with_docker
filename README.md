@@ -38,6 +38,20 @@ $ cd docker/papertrade
 $ docker compose up --build
 ```
 
+be aware that `restart: always` have been set in `docker-compose.yml` so it will automatically restart and it's necessary to explicitly stop the container.
+
+## See logs (with timestamp)
+```
+$ docker compose logs -t
+```
+
+### Stop with Docker-compose commands
+```
+$ docker compose stop
+```
+
+to stop paper trading
+
 ## Run a live trade session
 ### Run locally (ie without Docker)
 ```
@@ -48,4 +62,11 @@ $ python bot_run_live.py
 ```
 $ cd docker/live
 $ docker compose up --build
+```
+
+be aware that `restart: always` have been set in `docker-compose.yml` so it will automatically restart and it's necessary to explicitly stop the container.
+
+### Stop with Docker-compose commands
+```
+$ docker compose stop
 ```

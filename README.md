@@ -1,5 +1,9 @@
 # Blankly example to run inside Docker containers
 
+This is RSI trading strategies from https://github.com/blankly-finance/rsi-crypto-trading-bot
+
+This example is simply an experiment to see how deployment with Docker containers can be done.
+
 This is a work in progress which have never been tested live.
 Don't use it until you are sure!
 

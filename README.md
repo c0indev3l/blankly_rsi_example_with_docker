@@ -30,6 +30,12 @@ $ cd docker/backtest
 $ docker compose up --build
 ```
 
+or from project root directory
+
+```
+$ docker compose -f docker/backtest/docker-compose.yml up --build
+```
+
 ## Run a paper trade
 ### Run locally (ie without Docker)
 ```

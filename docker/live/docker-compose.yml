@@ -2,5 +2,26 @@ services:
   run_trading:
     build:
       context: ../../
-      dockerfile: Dockerfile.live
+      dockerfile_inline: |
+        FROM python:3
+
+        WORKDIR /usr/src/app
+
+        COPY requirements.txt ./
+        RUN pip install --no-cache-dir -r requirements.txt
+
+        # COPY data data
+
+        # COPY backtest.json .
+        COPY settings.json .
+        COPY keys.live.json keys.json
+        # COPY blankly.json .
+
+        COPY preprocessing.py .
+        #COPY postprocessing.py .
+        COPY db.py .
+        COPY bot_run_live.py .
+        COPY bot_core.py .
+
+        CMD ["/bin/bash", "-c", "python preprocessing.py live && python bot_run_live.py"]
     restart: unless-stopped

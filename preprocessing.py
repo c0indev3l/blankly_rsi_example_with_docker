@@ -28,7 +28,7 @@ def main():
             cat(".env")
             cat("bot_core.py")
             cat("bot_run_papertrade.py")
-        elif mode == "livetrade":
+        elif mode == "live":
             create_dotenv_file()
             cat(".env")
             cat("bot_core.py")

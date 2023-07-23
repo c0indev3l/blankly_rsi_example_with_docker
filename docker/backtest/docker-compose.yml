@@ -1,8 +1,35 @@
 services:
   run_trading:
     build:
-      context: ../../
-      dockerfile: Dockerfile.backtest
+      context: ../..
+      dockerfile_inline: |
+        FROM python:3
+
+        WORKDIR /usr/src/app
+
+        COPY requirements.txt ./
+        RUN pip install --no-cache-dir -r requirements.txt
+
+        COPY data data
+        VOLUME ./data /usr/src/app/data
+
+        COPY ../../backtest.json .
+        COPY settings.json .
+        COPY keys.json .
+        # COPY blankly.json .
+
+        RUN mkdir output
+
+        COPY preprocessing.py .
+        COPY postprocessing.py .
+        COPY db.py .
+        COPY parameter_explorer.py .
+        COPY bot_run_backtest.py .
+        COPY bot_core.py .
+
+        #CMD ["/bin/bash", "-c", "ls /usr/src/app -R"]
+        CMD ["/bin/bash", "-c", "ls /usr/src/app -R; python preprocessing.py backtest && python bot_run_backtest.py && python postprocessing.py backtest;"]
+
     volumes:
       - ../../data:/usr/src/app/data
       - ../../output:/usr/src/app/output

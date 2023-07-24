@@ -9,8 +9,7 @@ services:
 
         COPY requirements.txt ./
         RUN pip install --no-cache-dir -r requirements.txt
-        RUN pip install --no-cache-dir git+https://github.com/femtotrader/parameters-explorer/
-
+        RUN pip install --no-cache-dir -r requirements.backtest.txt
         COPY data data
         VOLUME ./data /usr/src/app/data
 

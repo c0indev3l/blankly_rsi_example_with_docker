@@ -11,6 +11,7 @@ import json
 from munch import Munch
 
 import numpy as np
+import pandas as pd
 
 from bot_core import init, price_event
 from parameters_explorer import ParametersExplorer
@@ -33,11 +34,16 @@ def main():
     print(f"PARAMS ENV VAR '{params}'")
 
     # Define exchange as KeylessExchange
-    exchange = blankly.KeylessExchange(
-        price_reader=blankly.data.data_reader.PriceReader(
-            "./data/XBTUSDT_1D.csv", "BTC-USD"
-        )
-    )
+    data = {}
+    data["BTC-USD"] = pd.read_parquet("./data/XBTUSDT.parquet", engine="fastparquet")
+    for symb in data.keys():
+        data[symb].reset_index(inplace=True)
+        data[symb]["time"] = data[symb]["time"].map(lambda dt: dt.timestamp())
+    price_readers = [
+        blankly.data.data_reader.PriceReader(df, symbol)
+        for (symbol, df) in data.items()
+    ]
+    exchange = blankly.KeylessExchange(price_reader=price_readers)
 
     # define exploration, constraints
     explorer = ParametersExplorer()

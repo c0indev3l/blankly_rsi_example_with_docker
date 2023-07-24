@@ -10,13 +10,13 @@ class Parameters:
         self.types = dict()
 
 
-class ParameterExplorer:
+class ParametersExplorer:
     def __init__(self):
         self._parameters = Parameters()
         self._constraints = []
 
     def __str__(self):
-        s = "ParameterExplorer"
+        s = "ParametersExplorer"
         if len(self._parameters.names) > 0:
             s += "\n\tParameters"
             for name in self._parameters.names:

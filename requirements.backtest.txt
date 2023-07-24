@@ -1,0 +1,2 @@
+parameters-explorer @ git+https://github.com/femtotrader/parameters-explorer/
+fastparquet

@@ -12,7 +12,7 @@ services:
         COPY requirements.backtest.txt .
         RUN pip install --no-cache-dir -r requirements.backtest.txt
         COPY data data
-        VOLUME ./data /usr/src/app/data
+        # VOLUME ./data /usr/src/app/data
 
         COPY ../../backtest.json .
         COPY settings.json .

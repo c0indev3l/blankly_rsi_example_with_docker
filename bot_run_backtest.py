@@ -38,7 +38,7 @@ def main():
     data = {}
     ps = ParquetStore("data/parquet")
     lib = ps.library["kraken.spot.klines.D"]
-    data["BTC-USD"] = lib.read("XBTUSDT")
+    data["BTC-USDT"] = lib.read("XBTUSDT")
     for symb in data.keys():
         data[symb].reset_index(inplace=True)
         data[symb]["time"] = data[symb]["time"].map(lambda dt: dt.timestamp())
@@ -76,11 +76,11 @@ def main():
         # Run the price event function every time we check for a new price - by default that is 15 seconds
         d_param = parameter._asdict()
         variables = {
-            "BTC-USD": Munch(**d_param),
+            "BTC-USDT": Munch(**d_param),
         }
         strategy.add_price_event(
             price_event,
-            symbol="BTC-USD",
+            symbol="BTC-USDT",
             resolution="1d",
             init=init,
             variables=variables,
@@ -88,7 +88,7 @@ def main():
 
         print(f"Run backtest {i} / {count} with {variables}")
         # strategy.start()  # papertrade / live
-        results = strategy.backtest(to="3y", initial_values={"USD": 10000})
+        results = strategy.backtest(to="3y", initial_values={"USDT": 10000})
         end_time = datetime.datetime.now()
         print(results)
 

@@ -14,6 +14,7 @@ import numpy as np
 import pandas as pd
 
 from bot_core import init, price_event
+from parquet_store import ParquetStore
 from parameters_explorer import ParametersExplorer
 
 from dotenv import dotenv_values
@@ -35,7 +36,9 @@ def main():
 
     # Define exchange as KeylessExchange
     data = {}
-    data["BTC-USD"] = pd.read_parquet("./data/XBTUSDT.parquet", engine="fastparquet")
+    ps = ParquetStore("data/parquet")
+    lib = ps.library["kraken.spot.klines.D"]
+    data["BTC-USD"] = lib.read("XBTUSDT")
     for symb in data.keys():
         data[symb].reset_index(inplace=True)
         data[symb]["time"] = data[symb]["time"].map(lambda dt: dt.timestamp())

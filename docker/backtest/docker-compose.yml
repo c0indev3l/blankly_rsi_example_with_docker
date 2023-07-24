@@ -7,8 +7,9 @@ services:
 
         WORKDIR /usr/src/app
 
-        COPY requirements.txt ./
+        COPY requirements.txt .
         RUN pip install --no-cache-dir -r requirements.txt
+        COPY requirements.backtest.txt .
         RUN pip install --no-cache-dir -r requirements.backtest.txt
         COPY data data
         VOLUME ./data /usr/src/app/data

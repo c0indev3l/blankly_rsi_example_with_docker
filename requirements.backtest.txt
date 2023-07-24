@@ -1,2 +1,3 @@
+parquet-store @ git+https://github.com/femtotrader/parquet-store/
 parameters-explorer @ git+https://github.com/femtotrader/parameters-explorer/
 fastparquet

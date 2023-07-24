@@ -5,7 +5,7 @@ description = "Trading stategy for Blankly Finance"
 authors = ["c0indev3l <working4coins@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "blankly_rsi_example_with_docker"}]
+packages = [{include = "*.py"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"

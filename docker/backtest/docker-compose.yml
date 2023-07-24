@@ -3,18 +3,28 @@ services:
     build:
       context: ../..
       dockerfile_inline: |
-        FROM python:3
+        FROM python:3.11-bookworm
 
         WORKDIR /usr/src/app
 
-        COPY requirements.txt .
-        RUN pip install --no-cache-dir -r requirements.txt
-        COPY requirements.backtest.txt .
-        RUN pip install --no-cache-dir -r requirements.backtest.txt
-        COPY data data
-        # VOLUME ./data /usr/src/app/data
+        RUN python --version
+        RUN apt-get update && apt-get install --no-install-recommends -y curl python3-poetry
+        
+        # Update poetry to latest version
+        RUN poetry self update
+        RUN poetry --version
 
-        COPY ../../backtest.json .
+        COPY README.md .
+
+        #COPY requirements.txt .
+        #RUN pip install --no-cache-dir -r requirements.txt
+        #COPY requirements.backtest.txt .
+        #RUN pip install --no-cache-dir -r requirements.backtest.txt
+        #COPY data data
+        ## VOLUME ./data /usr/src/app/data
+
+        COPY pyproject.toml .
+        COPY backtest.json .
         COPY settings.json .
         COPY keys.json .
         # COPY blankly.json .
@@ -28,8 +38,10 @@ services:
         COPY bot_run_backtest.py .
         COPY bot_core.py .
 
+        RUN poetry install
+
         #CMD ["/bin/bash", "-c", "ls /usr/src/app -R"]
-        CMD ["/bin/bash", "-c", "ls /usr/src/app -R; python preprocessing.py backtest && python bot_run_backtest.py && python postprocessing.py backtest;"]
+        CMD ["/bin/bash", "-c", "ls /usr/src/app -R; poetry run python preprocessing.py backtest && poetry run python bot_run_backtest.py && poetry run python postprocessing.py backtest;"]
 
     volumes:
       - ../../data:/usr/src/app/data

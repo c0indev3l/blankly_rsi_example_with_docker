@@ -13,7 +13,7 @@ from munch import Munch
 import numpy as np
 
 from bot_core import init, price_event
-from parameter_explorer import ParameterExplorer
+from parameters_explorer import ParametersExplorer
 
 from dotenv import dotenv_values
 
@@ -40,7 +40,7 @@ def main():
     )
 
     # define exploration, constraints
-    explorer = ParameterExplorer()
+    explorer = ParametersExplorer()
     # One point exploration
     explorer.add_parameter("rsi_period", 14)
     explorer.add_parameter("rsi_min", 30.0)

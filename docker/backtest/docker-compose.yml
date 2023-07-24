@@ -9,6 +9,7 @@ services:
 
         COPY requirements.txt ./
         RUN pip install --no-cache-dir -r requirements.txt
+        RUN pip install --no-cache-dir git+https://github.com/femtotrader/parameters-explorer/
 
         COPY data data
         VOLUME ./data /usr/src/app/data
@@ -23,7 +24,7 @@ services:
         COPY preprocessing.py .
         COPY postprocessing.py .
         COPY db.py .
-        COPY parameter_explorer.py .
+        # COPY parameters_explorer.py .
         COPY bot_run_backtest.py .
         COPY bot_core.py .
 
